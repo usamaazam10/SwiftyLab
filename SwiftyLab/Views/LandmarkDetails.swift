@@ -1,49 +1,54 @@
 //
-//  ContentView.swift
-//  Swifty Lab
+//  LandmarkDetails.swift
+//  SwiftyLab
 //
-//  Created by Usama Azam on 24/12/2024.
+//  Created by Usama Azam on 26/12/2024.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandmarkDetails: View {
+    
+    var landmark: Landmark
+    
     var body: some View {
-        VStack {
-            MapView()
+        ScrollView {
+            MapView(coordinates: landmark.locationCoordinates)
                 .frame(height: 300.0)
             
-            CircleImage()
+            CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
             
             VStack(alignment: .leading) {
-                Text("Turtle Rock")
+                Text(landmark.name)
                     .font(.title)
                     .foregroundColor(.green)
                 HStack {
-                    Text("Joshua Tree National Park")
+                    Text(landmark.park)
                     Spacer()
-                    Text("California")
+                    Text(landmark.state)
                 }
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 
                 Divider()
                 
-                Text("Aboud Turtle Rock")
+                Text("Aboud \(landmark.name)")
                     .font(.title2)
                 
-                Text("Turtle Rock is a residential area home to several parks and golf courses, as well as Concordia University Irvine.")
+                Text(landmark.description)
                 
             }
             .padding()
             
             Spacer()
         }
+        .navigationTitle(landmark.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    ContentView()
+    LandmarkDetails(landmark: landmarks[0])
 }
